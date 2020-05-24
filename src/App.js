@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Chart from './Chart'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor () {
+    super()
+    this.state = {
+      dataArray0: [30, 35, 45, 55, 70],
+      dataArray1: [50, 55, 45, 35, 20, 25, 25, 40],
+      dataArray2: [25, 35, 55, 35, 10, 65, 15, 20],
+      dataIndex: 0
+    }
+
+    this.changeData = this.changeData.bind(this)
+  }
+
+  changeData () {
+    this.setState(state => ({
+      dataIndex: (state.dataIndex + 1) % 3
+    }))
+  }
+
+  render () {
+    return (
+      <div>
+        <button onClick={this.changeData}>Change data</button>
+        <Chart
+          data={this.state['dataArray' + this.state.dataIndex]}
+          title={'dataset ' + this.state.dataIndex}
+        />
+      </div>
+    )
+  }
 }
 
-export default App;
+export default App
